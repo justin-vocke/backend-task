@@ -5,16 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace BackendTask.Business.Services.Students
+namespace BackendTask.Data.Implemenations
 {
-    public class StudentService : IStudentService
+    public class StudentRepository : IStudentRepository
     {
-        private readonly IStudentRepository _studentRepository;
-        public StudentService(IStudentRepository studentRepository)
-        {
-            _studentRepository = studentRepository;
-        }
         public Task AddStudent(Student student)
         {
             throw new NotImplementedException();
@@ -31,6 +25,11 @@ namespace BackendTask.Business.Services.Students
         }
 
         public Task<IEnumerable<Student>> GetStudents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SaveChangesAsync()
         {
             throw new NotImplementedException();
         }

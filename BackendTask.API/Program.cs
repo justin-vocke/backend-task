@@ -1,5 +1,5 @@
 using BackendTask.Business.Services.Students;
-using BackendTask.Data.Contexts;
+using BackendTask.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
