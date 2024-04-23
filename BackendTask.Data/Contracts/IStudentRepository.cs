@@ -13,7 +13,7 @@ namespace BackendTask.Data.Contracts
         Task<IEnumerable<Student>> GetStudents();
         Task<Student> AddStudent(Student student);
         Task DeleteStudent(int studentId);
-        Task UpdateStudent(int studentId, Student student);
+        Task UpdateStudent(Student currentStudent, Student student);
         Task SaveChangesAsync();
     }
 }

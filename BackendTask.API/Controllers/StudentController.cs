@@ -1,11 +1,13 @@
 ﻿using BackendTask.Business.Services.Students;
 using BackendTask.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BackendTask.API.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
@@ -16,6 +18,7 @@ namespace BackendTask.API.Controllers
             _studentService = studentService;
         }
         // GET: api/<StudentController>
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> GetStudents()
         {
@@ -100,7 +103,7 @@ namespace BackendTask.API.Controllers
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error creating new employee record");
+                    "Error deleting employee record");
             }
         }
     }

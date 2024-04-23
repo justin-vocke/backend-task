@@ -22,24 +22,36 @@ namespace BackendTask.Business.Services.Students
             
         }
 
-        public Task DeleteStudentAsync(int studentId)
+        public async Task DeleteStudentAsync(int studentId)
         {
-            throw new NotImplementedException();
+            var student = await GetStudentAsync(studentId);
+            if (student is not null)
+            {
+                await _studentRepository.DeleteStudent(studentId);
+            }
         }
 
-        public Task<Student> GetStudentAsync(int studentId)
+        public async Task<Student?> GetStudentAsync(int studentId)
         {
-            throw new NotImplementedException();
+            return await _studentRepository.GetStudent(studentId);
         }
 
-        public Task<IEnumerable<Student>> GetStudentsAsync()
+        public async Task<IEnumerable<Student>> GetStudentsAsync()
         {
-            throw new NotImplementedException();
+            return await _studentRepository.GetStudents();
         }
 
-        public Task UpdateStudentAsync(int studentId, Student student)
+        public async Task UpdateStudentAsync(int studentId, Student student)
         {
-            throw new NotImplementedException();
+            var currentStudent = await GetStudentAsync(studentId);
+            if(currentStudent is not null)
+            {
+                currentStudent.FirstName = student.FirstName;
+                currentStudent.LastName = student.LastName;
+                currentStudent.Age = student.Age;
+            }
+            await _studentRepository.SaveChangesAsync();
+            
         }
     }
 }

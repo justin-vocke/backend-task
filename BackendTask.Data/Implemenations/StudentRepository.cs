@@ -35,7 +35,17 @@ namespace BackendTask.Data.Implemenations
 
         public async Task<Student?> GetStudent(int studentId)
         {
-            return await _schoolContext.Students.FirstOrDefaultAsync(x => x.Id == studentId);
+            try
+            {
+                var student = await _schoolContext.Students.FirstOrDefaultAsync(x => x.Id == studentId);
+                return student;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return null;
+            
         }
 
         public async Task<IEnumerable<Student>> GetStudents()
@@ -48,16 +58,15 @@ namespace BackendTask.Data.Implemenations
             await _schoolContext.SaveChangesAsync();
         }
 
-        public async Task UpdateStudent(int studentId, Student student)
+        public async Task UpdateStudent(Student currentStudent, Student student)
         {
-            var studentToUpdate = await GetStudent(studentId);
-            if (studentToUpdate != null)
+            if (currentStudent != null)
             {
-                studentToUpdate.FirstName = student.FirstName;
-                studentToUpdate.LastName = student.LastName;
-                studentToUpdate.Name = student.Name;
+                currentStudent.FirstName = student.FirstName;
+                currentStudent.LastName = student.LastName;
+                currentStudent.Age = student.Age;
             }
-            await _schoolContext.SaveChangesAsync();
+            
         }
     }
 }

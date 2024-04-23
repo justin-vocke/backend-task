@@ -9,7 +9,7 @@ namespace BackendTask.Business.Services.Students
 {
     public interface IStudentService
     {
-        Task<Student> GetStudentAsync(int studentId);
+        Task<Student?> GetStudentAsync(int studentId);
         Task<IEnumerable<Student>> GetStudentsAsync();
         Task<Student> AddStudentAsync(Student student);
         Task DeleteStudentAsync(int studentId);
