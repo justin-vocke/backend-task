@@ -17,16 +17,35 @@ namespace BackendTask.API.Controllers
         }
         // GET: api/<StudentController>
         [HttpGet]
-        public IEnumerable<string> GetStudents()
+        public async Task<ActionResult<IEnumerable<string>>> GetStudents()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var students = await _studentService.GetStudentsAsync();
+                return Ok(students);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new employee record");
+            }
         }
 
         // GET api/<StudentController>/5
         [HttpGet("{id}")]
-        public string GetStudent(int id)
+        public async Task<ActionResult<Student>> GetStudent(int id)
         {
-            return "value";
+            try
+            {
+                var student = await _studentService.GetStudentAsync(id);
+                return Ok(student);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new employee record");
+            }
         }
 
         // POST api/<StudentController>
@@ -51,14 +70,38 @@ namespace BackendTask.API.Controllers
 
         // PUT api/<StudentController>/5
         [HttpPut("{id}")]
-        public void UpdateStudent(int id, [FromBody] string value)
+        public async Task<IActionResult> UpdateStudent(int id, Student student)
         {
+            try
+            {
+                if (student is null)
+                    return BadRequest();
+
+                await _studentService.UpdateStudentAsync(id, student);
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new employee record");
+            }
         }
 
         // DELETE api/<StudentController>/5
         [HttpDelete("{id}")]
-        public void DeleteStudent(int id)
+        public async Task<IActionResult> DeleteStudent(int id)
         {
+            try
+            {
+                await _studentService.DeleteStudentAsync(id);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new employee record");
+            }
         }
     }
 }
