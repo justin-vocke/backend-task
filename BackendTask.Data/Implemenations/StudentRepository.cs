@@ -1,5 +1,7 @@
 ﻿using BackendTask.Data.Contracts;
+using BackendTask.Data.DbContexts;
 using BackendTask.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,34 +11,53 @@ namespace BackendTask.Data.Implemenations
 {
     public class StudentRepository : IStudentRepository
     {
-        public Task AddStudent(Student student)
+        private readonly SchoolContext _schoolContext;
+        public StudentRepository(SchoolContext schoolContext)
         {
-            throw new NotImplementedException();
+            _schoolContext = schoolContext;
+        }
+        public async Task<Student> AddStudent(Student student)
+        {
+            await _schoolContext.Students.AddAsync(student);
+            await _schoolContext.SaveChangesAsync();
+            return student;
         }
 
-        public Task DeleteStudent(int studentId)
+        public async Task DeleteStudent(int studentId)
         {
-            throw new NotImplementedException();
+            var student = await GetStudent(studentId);
+            if (student != null)
+            {
+                _schoolContext.Students.Remove(student);
+            }
+            await _schoolContext.SaveChangesAsync();
         }
 
-        public Task<Student> GetStudent(int studentId)
+        public async Task<Student?> GetStudent(int studentId)
         {
-            throw new NotImplementedException();
+            return await _schoolContext.Students.FirstOrDefaultAsync(x => x.Id == studentId);
         }
 
-        public Task<IEnumerable<Student>> GetStudents()
+        public async Task<IEnumerable<Student>> GetStudents()
         {
-            throw new NotImplementedException();
+            return await _schoolContext.Students.ToListAsync();
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _schoolContext.SaveChangesAsync();
         }
 
-        public Task UpdateStudent(int studentId, Student student)
+        public async Task UpdateStudent(int studentId, Student student)
         {
-            throw new NotImplementedException();
+            var studentToUpdate = await GetStudent(studentId);
+            if (studentToUpdate != null)
+            {
+                studentToUpdate.FirstName = student.FirstName;
+                studentToUpdate.LastName = student.LastName;
+                studentToUpdate.Name = student.Name;
+            }
+            await _schoolContext.SaveChangesAsync();
         }
     }
 }

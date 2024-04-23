@@ -1,5 +1,7 @@
 using BackendTask.Business.Services.Students;
+using BackendTask.Data.Contracts;
 using BackendTask.Data.DbContexts;
+using BackendTask.Data.Implemenations;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddDbContext<SchoolContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );

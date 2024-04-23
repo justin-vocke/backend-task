@@ -9,9 +9,9 @@ namespace BackendTask.Data.Contracts
 {
     public interface IStudentRepository
     {
-        Task<Student> GetStudent(int studentId);
+        Task<Student?> GetStudent(int studentId);
         Task<IEnumerable<Student>> GetStudents();
-        Task AddStudent(Student student);
+        Task<Student> AddStudent(Student student);
         Task DeleteStudent(int studentId);
         Task UpdateStudent(int studentId, Student student);
         Task SaveChangesAsync();

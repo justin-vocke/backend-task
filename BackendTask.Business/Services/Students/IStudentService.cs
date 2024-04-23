@@ -9,11 +9,11 @@ namespace BackendTask.Business.Services.Students
 {
     public interface IStudentService
     {
-        Task<Student> GetStudent(int studentId);
-        Task<IEnumerable<Student>> GetStudents();
-        Task AddStudent(Student student);
-        Task DeleteStudent(int studentId);
-        Task UpdateStudent(int studentId, Student student);
+        Task<Student> GetStudentAsync(int studentId);
+        Task<IEnumerable<Student>> GetStudentsAsync();
+        Task<Student> AddStudentAsync(Student student);
+        Task DeleteStudentAsync(int studentId);
+        Task UpdateStudentAsync(int studentId, Student student);
 
     }
 }

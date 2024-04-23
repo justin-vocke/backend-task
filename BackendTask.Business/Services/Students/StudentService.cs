@@ -15,27 +15,29 @@ namespace BackendTask.Business.Services.Students
         {
             _studentRepository = studentRepository;
         }
-        public Task AddStudent(Student student)
+        public async Task<Student> AddStudentAsync(Student student)
+        {
+            
+            return await _studentRepository.AddStudent(student);
+            
+        }
+
+        public Task DeleteStudentAsync(int studentId)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteStudent(int studentId)
+        public Task<Student> GetStudentAsync(int studentId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Student> GetStudent(int studentId)
+        public Task<IEnumerable<Student>> GetStudentsAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Student>> GetStudents()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateStudent(int studentId, Student student)
+        public Task UpdateStudentAsync(int studentId, Student student)
         {
             throw new NotImplementedException();
         }
