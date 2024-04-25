@@ -23,7 +23,7 @@ builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddDbContext<SchoolContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
-
+builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

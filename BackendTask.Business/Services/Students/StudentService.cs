@@ -1,4 +1,6 @@
-﻿using BackendTask.Data.Contracts;
+﻿using AutoMapper;
+using BackendTask.Business.DTOs;
+using BackendTask.Data.Contracts;
 using BackendTask.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -11,14 +13,26 @@ namespace BackendTask.Business.Services.Students
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
-        public StudentService(IStudentRepository studentRepository)
+        private readonly IMapper _mapper;
+        public StudentService(IStudentRepository studentRepository,
+            IMapper mapper)
         {
             _studentRepository = studentRepository;
+            _mapper = mapper;
         }
-        public async Task<Student> AddStudentAsync(Student student)
+        public async Task<StudentDto> AddStudentAsync(Student student)
         {
-            
-            return await _studentRepository.AddStudent(student);
+            try
+            {
+                var newStudent = await _studentRepository.AddStudent(student);
+                var newStudentDto = _mapper.Map<StudentDto>(newStudent);
+                return newStudentDto;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Something went wrong in the {nameof(AddStudentAsync)} service method {ex}");
+                throw;
+            }
             
         }
 
@@ -31,20 +45,46 @@ namespace BackendTask.Business.Services.Students
             }
         }
 
-        public async Task<Student?> GetStudentAsync(int studentId)
+        public async Task<StudentDto?> GetStudentAsync(int studentId)
         {
-            return await _studentRepository.GetStudent(studentId);
+            try
+            {
+                var student = await _studentRepository.GetStudent(studentId);
+
+                var studentDto = _mapper.Map<StudentDto>(student);
+
+                return studentDto;
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Something went wrong in the {nameof(GetStudentAsync)} service method {ex}");
+                throw;
+            }
+            
+
         }
 
-        public async Task<IEnumerable<Student>> GetStudentsAsync()
+        public async Task<IEnumerable<StudentDto>> GetStudentsAsync()
         {
-            return await _studentRepository.GetStudents();
+            try
+            {
+                var students = await _studentRepository.GetStudents();
+                var studentsDto = _mapper.Map<IEnumerable<StudentDto>>(students);
+                return studentsDto;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Something went wrong in the {nameof(GetStudentsAsync)} service method {ex}");
+                throw;
+            }
+            
         }
 
         public async Task UpdateStudentAsync(int studentId, Student student)
         {
-            var currentStudent = await GetStudentAsync(studentId);
-            if(currentStudent is not null)
+            var currentStudent = await _studentRepository.GetStudent(studentId);
+            if (currentStudent is not null)
             {
                 currentStudent.FirstName = student.FirstName;
                 currentStudent.LastName = student.LastName;

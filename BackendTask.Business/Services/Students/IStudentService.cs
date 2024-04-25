@@ -1,4 +1,5 @@
-﻿using BackendTask.Data.Models;
+﻿using BackendTask.Business.DTOs;
+using BackendTask.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace BackendTask.Business.Services.Students
 {
     public interface IStudentService
     {
-        Task<Student?> GetStudentAsync(int studentId);
-        Task<IEnumerable<Student>> GetStudentsAsync();
-        Task<Student> AddStudentAsync(Student student);
+        Task<StudentDto?> GetStudentAsync(int studentId);
+        Task<IEnumerable<StudentDto>> GetStudentsAsync();
+        Task<StudentDto> AddStudentAsync(Student student);
         Task DeleteStudentAsync(int studentId);
         Task UpdateStudentAsync(int studentId, Student student);
 
