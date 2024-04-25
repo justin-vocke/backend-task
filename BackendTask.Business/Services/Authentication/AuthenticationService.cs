@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BackendTask.Business.Services.Authentication
 {
-    internal sealed class AuthenticationService : IAuthenticationService
+    public class AuthenticationService : IAuthenticationService
     {
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;

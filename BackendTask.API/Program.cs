@@ -1,5 +1,6 @@
 using BackendTask.API.ActionFilters;
 using BackendTask.API.Extensions;
+using BackendTask.Business.Services.Authentication;
 using BackendTask.Business.Services.Students;
 using BackendTask.Data.Contracts;
 using BackendTask.Data.DbContexts;
@@ -21,6 +22,7 @@ builder.Services.ConfigureIdentity();
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddDbContext<SchoolContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))

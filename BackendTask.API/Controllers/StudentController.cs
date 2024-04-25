@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackendTask.API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
@@ -19,7 +19,7 @@ namespace BackendTask.API.Controllers
             _studentService = studentService;
         }
         // GET: api/<StudentController>
-        [AllowAnonymous]
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> GetStudents()
         {
@@ -54,7 +54,7 @@ namespace BackendTask.API.Controllers
 
         // POST api/<StudentController>
         [HttpPost]
-        public async Task<IActionResult> CreateStudent(StudentDto student)
+        public async Task<IActionResult> CreateStudent(StudentForCreationDto student)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace BackendTask.API.Controllers
 
                 var createdStudent = await _studentService.AddStudentAsync(student);
 
-                return CreatedAtAction(nameof(CreateStudent), new { id = createdStudent.Id}, student);
+                return CreatedAtRoute(nameof(GetStudent), new { id = createdStudent.Id}, student);
             }
             catch (Exception)
             {
