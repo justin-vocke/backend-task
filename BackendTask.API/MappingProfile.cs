@@ -9,8 +9,12 @@ namespace BackendTask.API
         public MappingProfile() 
         {
             CreateMap<Student, StudentDto>()
-                .ForMember(s => s.FullName, 
+                .ForCtorParam("FullName", 
                     opt => opt.MapFrom(x => string.Join(' ', x.FirstName, x.LastName)));
+
+            CreateMap<UserForRegistrationDto, User>();
+
+            CreateMap<StudentForCreationDto, Student>();    
         }
     }
 }

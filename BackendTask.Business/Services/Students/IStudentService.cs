@@ -12,7 +12,7 @@ namespace BackendTask.Business.Services.Students
     {
         Task<StudentDto?> GetStudentAsync(int studentId);
         Task<IEnumerable<StudentDto>> GetStudentsAsync();
-        Task<StudentDto> AddStudentAsync(Student student);
+        Task<StudentDto> AddStudentAsync(StudentForCreationDto student);
         Task DeleteStudentAsync(int studentId);
         Task UpdateStudentAsync(int studentId, Student student);
 

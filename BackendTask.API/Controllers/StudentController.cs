@@ -1,4 +1,5 @@
-﻿using BackendTask.Business.Services.Students;
+﻿using BackendTask.Business.DTOs;
+using BackendTask.Business.Services.Students;
 using BackendTask.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +54,7 @@ namespace BackendTask.API.Controllers
 
         // POST api/<StudentController>
         [HttpPost]
-        public async Task<ActionResult<Student>> CreateStudent(Student student)
+        public async Task<IActionResult> CreateStudent(StudentDto student)
         {
             try
             {

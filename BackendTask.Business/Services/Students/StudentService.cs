@@ -20,13 +20,15 @@ namespace BackendTask.Business.Services.Students
             _studentRepository = studentRepository;
             _mapper = mapper;
         }
-        public async Task<StudentDto> AddStudentAsync(Student student)
+        public async Task<StudentDto> AddStudentAsync(StudentForCreationDto student)
         {
             try
             {
-                var newStudent = await _studentRepository.AddStudent(student);
-                var newStudentDto = _mapper.Map<StudentDto>(newStudent);
-                return newStudentDto;
+                var newStudentEntity = _mapper.Map<Student>(student);
+                var newStudent = await _studentRepository.AddStudent(newStudentEntity);
+
+                var studentToReturn = _mapper.Map<StudentDto>(newStudentEntity);
+                return studentToReturn;
             }
             catch (Exception ex)
             {
