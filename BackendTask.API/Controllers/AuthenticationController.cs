@@ -1,4 +1,5 @@
-﻿using BackendTask.Business.DTOs;
+﻿using BackendTask.API.ActionFilters;
+using BackendTask.Business.DTOs;
 using BackendTask.Business.Services.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,18 @@ namespace BackendTask.API.Controllers
             _authenticationService = authenticationService;
         }
 
+
+        [HttpPost("login")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
+        {
+            if (!await _authenticationService.ValidateUser(user))
+                return Unauthorized();
+            return Ok(new
+            {
+                Token = await _authenticationService.CreateToken()
+            });
+        }
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
         {

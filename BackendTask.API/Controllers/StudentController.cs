@@ -10,6 +10,7 @@ namespace BackendTask.API.Controllers
 {
     
     [Route("api/[controller]")]
+    [Authorize(Roles ="Administrator")]
     [ApiController]
     public class StudentController : ControllerBase
     {
