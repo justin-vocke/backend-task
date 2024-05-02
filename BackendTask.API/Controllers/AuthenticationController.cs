@@ -3,11 +3,13 @@ using BackendTask.Business.DTOs;
 using BackendTask.Business.Services.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace BackendTask.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableRateLimiting("fixed")]
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;

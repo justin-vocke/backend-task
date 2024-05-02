@@ -5,7 +5,9 @@ using BackendTask.Business.Services.Students;
 using BackendTask.Data.Contracts;
 using BackendTask.Data.DbContexts;
 using BackendTask.Data.Implemenations;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +21,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJWT(builder.Configuration);
-
+builder.Services.AddRateLimiter(options => {
+    options.RejectionStatusCode = 429;
+    options.AddFixedWindowLimiter(policyName: "fixed", options => {
+        options.PermitLimit = 3;
+        options.Window = TimeSpan.FromSeconds(10);
+        options.AutoReplenishment = true;
+        options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        options.QueueLimit = 2;
+    });
+});
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IStudentService, StudentService>();

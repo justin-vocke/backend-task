@@ -3,6 +3,7 @@ using BackendTask.Business.Services.Students;
 using BackendTask.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +13,7 @@ namespace BackendTask.API.Controllers
     [Route("api/[controller]")]
     [Authorize(Roles ="Administrator")]
     [ApiController]
+    [EnableRateLimiting("fixed")]
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _studentService;
