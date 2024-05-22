@@ -11,7 +11,7 @@ namespace BackendTask.API.Controllers
 {
     
     [Route("api/[controller]")]
-    [Authorize(Roles ="Administrator")]
+    [Authorize]
     [ApiController]
     [EnableRateLimiting("fixed")]
     public class StudentController : ControllerBase
