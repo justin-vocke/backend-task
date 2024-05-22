@@ -1,7 +1,10 @@
 ﻿using BackendTask.API.ActionFilters;
 using BackendTask.Business.DTOs;
 using BackendTask.Business.Services.Authentication;
+using BackendTask.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 
@@ -13,13 +16,33 @@ namespace BackendTask.API.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;
+        private SignInManager<IdentityUser> signInManager;
 
-        public AuthenticationController(IAuthenticationService authenticationService)
+        public AuthenticationController(IAuthenticationService authenticationService, SignInManager<IdentityUser> signInManager)
         {
             _authenticationService = authenticationService;
+            this.signInManager = signInManager;
         }
 
 
+        [HttpPost("logout")]
+        
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {
+                await signInManager.SignOutAsync();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+                
+            
+            //return Unauthorized("not authorized");
+        }
         [HttpPost("login")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
@@ -30,7 +53,8 @@ namespace BackendTask.API.Controllers
             {
                 Token = await _authenticationService.CreateToken()
             });
-        }
+        }
+
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
         {

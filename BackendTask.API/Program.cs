@@ -5,22 +5,26 @@ using BackendTask.Business.Services.Students;
 using BackendTask.Data.Contracts;
 using BackendTask.Data.DbContexts;
 using BackendTask.Data.Implemenations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddAuthorization();
 // Add services to the container.
 builder.Services.AddScoped<ValidationFilterAttribute>();
+
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<SchoolContext>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAuthentication();
-builder.Services.ConfigureIdentity();
-builder.Services.ConfigureJWT(builder.Configuration);
+//.Services.AddAuthentication();
+//builder.Services.ConfigureIdentity();
+//builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.AddRateLimiter(options => {
     options.RejectionStatusCode = 429;
     options.AddFixedWindowLimiter(policyName: "fixed", options => {
@@ -31,7 +35,7 @@ builder.Services.AddRateLimiter(options => {
         options.QueueLimit = 2;
     });
 });
-builder.Services.AddAuthorization();
+
 
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
@@ -48,7 +52,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.MapIdentityApi<IdentityUser>();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

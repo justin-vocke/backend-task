@@ -17,12 +17,12 @@ namespace BackendTask.Business.Services.Authentication
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IMapper _mapper;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _configuration;
 
-        private User? _user;
-        public AuthenticationService( IMapper mapper,
-        UserManager<User> userManager, IConfiguration configuration)
+        private IdentityUser? _user;
+        public AuthenticationService(IMapper mapper,
+        UserManager<IdentityUser> userManager, IConfiguration configuration)
         {
             _mapper = mapper;
             _userManager = userManager;
@@ -84,7 +84,7 @@ namespace BackendTask.Business.Services.Authentication
 
             if (!result)
                 Console.WriteLine("Wrong username or password. Update this from a console message to a proper return type");
-            
+
             return result;
 
         }
@@ -101,7 +101,7 @@ namespace BackendTask.Business.Services.Authentication
 
         }
 
-        
+
     }
 
 }

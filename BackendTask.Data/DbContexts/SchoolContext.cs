@@ -1,5 +1,6 @@
 ﻿using BackendTask.Data.Configuration;
 using BackendTask.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BackendTask.Data.DbContexts
 {
-    public class SchoolContext: IdentityDbContext<User>
+    public class SchoolContext: IdentityDbContext<IdentityUser>
     {
         public SchoolContext(DbContextOptions<SchoolContext> options) : base(options)
         {
