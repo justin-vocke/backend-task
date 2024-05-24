@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendTask.API", "BackendTask.API\BackendTask.API.csproj", "{667A9B95-786C-40D7-8A66-118FEEE4E59F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendTask.API", "BackendTask.API\BackendTask.API.csproj", "{667A9B95-786C-40D7-8A66-118FEEE4E59F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendTask.Data", "BackendTask.Data\BackendTask.Data.csproj", "{041FFCDF-A20B-4EE5-91FB-11556C394A3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendTask.Data", "BackendTask.Data\BackendTask.Data.csproj", "{041FFCDF-A20B-4EE5-91FB-11556C394A3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendTask.Business", "BackendTask.Business\BackendTask.Business.csproj", "{BDF7031A-900B-4B30-BE82-16DDC6ABB398}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackendTask.Business", "BackendTask.Business\BackendTask.Business.csproj", "{BDF7031A-900B-4B30-BE82-16DDC6ABB398}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendTask.Test", "BackendTask.Test\BackendTask.Test.csproj", "{32FBEE01-F266-4998-AEE3-47084DD1233A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{BDF7031A-900B-4B30-BE82-16DDC6ABB398}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDF7031A-900B-4B30-BE82-16DDC6ABB398}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDF7031A-900B-4B30-BE82-16DDC6ABB398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32FBEE01-F266-4998-AEE3-47084DD1233A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32FBEE01-F266-4998-AEE3-47084DD1233A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32FBEE01-F266-4998-AEE3-47084DD1233A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32FBEE01-F266-4998-AEE3-47084DD1233A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
